@@ -29,7 +29,9 @@ class MainActivity : AppCompatActivity() {
 
     /** URL to fetch 6 random jokes excluding the explicit ones */
     private val url = "http://api.icndb.com/jokes/"
-    private val urlAttachment = "random/6?exclude=[explicit]"
+    private val randomUrl = "random/6?exclude=[explicit]"
+    private val escapeUrl = "escape=javascript"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,18 +79,14 @@ class MainActivity : AppCompatActivity() {
             val task = JokeAsyncTask()
 
             if (digit == 0) {
-                task.execute(url + urlAttachment)
+                task.execute("$url$randomUrl&$escapeUrl")
             } else {
-                task.execute(url + editTextBox?.text)
+                var text = editTextBox?.text
+                task.execute("$url$text?$escapeUrl")
             }
 
         } else {
-//                // Otherwise, display error
-//                // First, hide loading indicator so error message will be visible
-//                loadingIndicator.visibility = View.GONE
-//
-//                // Update empty state with no connection error message
-//                emptyStateTextView!!.setText(R.string.no_internet_connection)
+            Toast.makeText(this, getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show()
         }
     }
 
