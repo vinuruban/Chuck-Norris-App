@@ -15,7 +15,9 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:background="@drawable/search_button_border"
         android:hint="Enter joke ID between"
+        android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,14 +41,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button" />
+            android:text="Button"
+            android:layout_marginRight="8dp"
+            android:textColor="@color/colorAccent"
+            android:background="@drawable/refresh_button_border"/>
 
         <Button
             android:id="@+id/searchButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Search" />
+            android:text="Search"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:background="@drawable/search_button_border"/>
 
     </LinearLayout>
 
