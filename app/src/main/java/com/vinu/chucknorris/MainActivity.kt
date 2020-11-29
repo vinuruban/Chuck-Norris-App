@@ -1,16 +1,16 @@
 package com.vinu.chucknorris
 
-import android.content.ContentValues
-import android.database.sqlite.SQLiteDatabase
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.net.ConnectivityManager
 import android.os.AsyncTask
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ListView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 
@@ -25,26 +25,35 @@ class MainActivity : AppCompatActivity() {
     /** Adapter for the list of jokes */
     private var adapter: ArrayAdapter<String>? = null
 
-    /** URL to fetch random jokes excluding the explicit ones */
-    private val url = "http://api.icndb.com/jokes/random/"
-    private val urlAttachment = "?exclude=[explicit]"
-    private var finalUrl = ""
+    private var editTextBox: EditText? = null
+
+    /** URL to fetch 6 random jokes excluding the explicit ones */
+    private val url = "http://api.icndb.com/jokes/"
+    private val urlAttachment = "random/6?exclude=[explicit]"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        refreshJokeList()
+        val refreshButton = findViewById<View>(R.id.refreshButton) as Button
+        val searchButton = findViewById<View>(R.id.searchButton) as Button
+        editTextBox = findViewById<View>(R.id.editText) as EditText
 
-        val button = findViewById<View>(R.id.button) as Button
+        refreshJokeList(0)
 
-        button.setOnClickListener {
-            refreshJokeList()
+        refreshButton.setOnClickListener {
+            refreshJokeList(0)
+        }
+
+        searchButton.setOnClickListener {
+            if (editTextBox!!.text.isEmpty()) {
+                Toast.makeText(this, getString(R.string.enter_ID), Toast.LENGTH_SHORT).show();
+            }
+            refreshJokeList(1)
         }
     }
 
-    private fun refreshJokeList() {
-        finalUrl = url + "6" + urlAttachment
+    private fun refreshJokeList(digit: Int) {
 
         listView = findViewById(R.id.listView)
 
@@ -66,7 +75,13 @@ class MainActivity : AppCompatActivity() {
         if (networkInfo != null && networkInfo.isConnectedOrConnecting) {
             // Start the AsyncTask to fetch the data
             val task = JokeAsyncTask()
-            task.execute(finalUrl)
+
+            if (digit == 0) {
+                task.execute(url + urlAttachment)
+            } else {
+                task.execute(url + editTextBox?.text)
+            }
+
         } else {
 //                // Otherwise, display error
 //                // First, hide loading indicator so error message will be visible
@@ -97,7 +112,7 @@ class MainActivity : AppCompatActivity() {
             // Clear the adapter of previous the data
             adapter?.clear()
 
-            val button = findViewById<View>(R.id.button) as Button
+            val button = findViewById<View>(R.id.refreshButton) as Button
 
             // If there is a valid list of {@link Joke}s, then add them to the adapter's
             // data set. This will trigger the ListView to update.

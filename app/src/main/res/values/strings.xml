@@ -3,7 +3,8 @@
     <string name="no_jokes">No found found.</string>
     <string name="no_internet_connection">No internet connection.</string>
     <string name="button_initial">Lists of jokes are loading...</string>
-    <string name="button_refresh">Refresh list</string>
+    <string name="button_refresh">Load 6 random jokes</string>
+    <string name="enter_ID">Enter a valid joke ID</string>
 </resources>
 
 

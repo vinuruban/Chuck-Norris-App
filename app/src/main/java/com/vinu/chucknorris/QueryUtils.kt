@@ -18,10 +18,14 @@ object QueryUtils {
     /** Tag for the log messages  */
     val LOG_TAG = QueryUtils::class.java.simpleName
 
+    private var searchActive = false
+
     /**
      * Query the USGS dataset and return a list of [JokeObject] objects.
      */
     fun fetchData(requestUrl: String): ArrayList<String>? {
+
+        searchActive = !requestUrl.contains("random")
 
         // Create URL object
         val url = createUrl(requestUrl)
@@ -130,14 +134,31 @@ object QueryUtils {
             // Create a JSONObject from the JSON response string
             val jsonObj = JSONObject(jokeJSON)
 
-            // Getting JSON Array node
-            val valueArray = jsonObj.getJSONArray("value")
+            if(searchActive) {
+                // Getting JSON Array node
+                val valueObj = jsonObj.getJSONObject("value")
+                val jokeString = valueObj.getString("joke")
+                val categoriesArray = valueObj.getJSONArray("categories")
 
-            // looping through All jokeArray
-            for (i in 0 until valueArray.length()) {
-                val currentJoke = valueArray.getJSONObject(i)
-                val jokeString = currentJoke.getString("joke")
-                jokes.add(jokeString)
+                if (categoriesArray.length() != 0) {
+                    if (categoriesArray.get(0) == "explicit") {
+                        jokes.add("Explicit jokes cannot be seen, please try another joke ID.")
+                    }
+                }
+                else {
+                    jokes.add(jokeString)
+                }
+
+            } else {
+                // Getting JSON Array node
+                val valueArray = jsonObj.getJSONArray("value")
+
+                // looping through All jokeArray
+                for (i in 0 until valueArray.length()) {
+                    val currentJoke = valueArray.getJSONObject(i)
+                    val jokeString = currentJoke.getString("joke")
+                    jokes.add(jokeString)
+                }
             }
         } catch (e: JSONException) {
             // If an error is thrown when executing any of the above statements in the "try" block,
