@@ -2,6 +2,7 @@ package com.vinu.chucknorris
 
 import android.text.TextUtils
 import android.util.Log
+import android.widget.Toast
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -137,8 +138,16 @@ object QueryUtils {
             /** Create a JSONObject from the JSON response string */
             val jsonObj = JSONObject(jokeJSON)
 
-            /** If you're searching for a specific joke... */
-            if(searchActive) {
+            /** To know if a joke was found when searching */
+            val type = jsonObj.getString("type")
+
+            if (type == "NoSuchQuoteException") {
+                /** If no jokes are found from the request */
+                jokes.add("No jokes found.")
+            }
+            else if(searchActive) {
+
+                /** If you're searching for a specific joke... */
 
                 val valueObj = jsonObj.getJSONObject("value")
                 val jokeString = valueObj.getString("joke")

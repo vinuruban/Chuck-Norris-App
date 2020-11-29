@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
             /** if the edit text box is empty, display error message */
             if (editTextBox!!.text.isEmpty()) {
-                Toast.makeText(this, getString(R.string.enter_ID), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.enter_ID), Toast.LENGTH_SHORT).show()
             }
             refreshJokeList(1)
         }
