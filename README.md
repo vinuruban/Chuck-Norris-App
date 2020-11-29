@@ -6,7 +6,7 @@ This Android app is developed using Kotlin. It displays jokes fetched from the â
 - Prior to development, the work was broken down into smaller tasks and arranged them in order of priority.
 - Read through the documentation and selected the URLs necessary for this exercise.
 
-Here are key factors of this application:
+# Key factors of this application:
 - A list of six random jokes can be seen. Clicking on the reload button will repopulate six different jokes. Explicit joke have already been filtered from the list.
 - A specific joke can be found by entering the joke ID in the text field and clicking the search button.
 - The special characters in the jokes are escaped in the list.
