@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">The Chuck Norris</string>
+    <string name="no_jokes">No found found.</string>
+    <string name="no_internet_connection">No internet connection.</string>
+    <string name="button_initial">Lists of jokes are loading...</string>
+    <string name="button_refresh">Refresh list</string>
 </resources>
+
+
+
