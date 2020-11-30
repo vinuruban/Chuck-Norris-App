@@ -15,7 +15,10 @@ This Android app is developed using Kotlin. It displays jokes fetched from the â
   - The following will be returned if a non-existence joke ID is entered - "No joke found."
   - If the joke ID provides an explicit joke, this won't be shown on screen and the following will be returned instead - "Explicit jokes cannot be seen, please try another joke ID.".
 - When there isn't any internet connection, the app will alert this when attempting to find jokes.
+- The text field only accepts digits
 - The keyboard will minimise when the buttons are clicked - this improves the user experience.
+- Unit tests are written to check the values are returned as expected for the 'fetch data' method.
+- Stubbed Android library is replaced with JSON library to interact with JSONArray and JSONObject.
 
 # Further Improvements
 - Saving jokes to favourites may be useful. This can be done by long-pressing a joke which will store the joke in the SQLite database. Fragments can be implemented to view the favourite jokes. There should be an option to delete the jokes from favourites.

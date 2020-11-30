@@ -17,6 +17,7 @@
         android:layout_marginRight="16dp"
         android:background="@drawable/search_button_border"
         android:hint="Enter joke ID between"
+        android:inputType="numberPassword"
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
